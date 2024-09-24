@@ -1,4 +1,4 @@
-﻿class InventoryManager
+﻿class Program
 {
     static List<Item> inventory = new List<Item>();
 
