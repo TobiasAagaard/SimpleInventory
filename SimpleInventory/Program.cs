@@ -8,6 +8,10 @@
 
         AddItem(new Item { Name = "Laptop", Quantity = 10, Price = 999.99m });
 
+        foreach (var item in inventory) 
+        { 
+          Console.WriteLine($"Name: {item.Name} Pric: {item.Price}");
+        }
 
         void AddItem(Item item)
         {
