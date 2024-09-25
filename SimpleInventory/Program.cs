@@ -1,11 +1,12 @@
 ﻿using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Xml.Linq;
 
 class Program
 {
     static List<Item> inventory = new List<Item>();
 
-    static void Main(string[] args)
+    static void Main()
     {
         Console.WriteLine("Welcome to SimpleInventory!");
 
@@ -39,6 +40,7 @@ class Program
 
             void AddItem(Item item)
             {
+                Console.WriteLine("\nYou need to enter a name for the product ");
                 string? name = "";
 
                 while (string.IsNullOrWhiteSpace(name))
@@ -67,7 +69,7 @@ class Program
                     Console.WriteLine("Invalid input. Please enter a non-negative number.");
                 }
 
-                inventory.Add(new Item { Name = name, Quantity = quantity, Price = price });
+                inventory.Add(new Item { Id = GenerateRandomId(6), Name = name, Quantity = quantity, Price = price });
                 Console.WriteLine($"Item '{name}' added successfully!");
 
             }
@@ -84,9 +86,24 @@ class Program
                     Console.WriteLine("\nCurrent Inventory");
                     foreach (var item in inventory)
                     {
-                        Console.WriteLine($"Name: {item.Name} Price: {item.Price:C}");
+                        Console.WriteLine($"ID: {item.Id} Name: {item.Name} Price: {item.Price:C}");
                     }
                 }
+            }
+
+            static string GenerateRandomId(int length)
+            {
+                const string chars = "0123456789";
+                char[] id = new char[length];
+                byte[] randomBytes = new byte[length];
+                RandomNumberGenerator.Fill(randomBytes);
+
+                for (int i = 0; i < id.Length; i++)
+                {
+                    id[i] = chars[randomBytes[i] % chars.Length];
+                }
+
+                return new string(id);
             }
 
         }
@@ -96,6 +113,7 @@ class Program
 
     class Item
     {
+        public string? Id { get; set; }
         public string? Name { get; set; }
         public int? Quantity { get; set; }
         public decimal? Price { get; set; }
