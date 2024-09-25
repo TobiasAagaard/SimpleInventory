@@ -1,4 +1,7 @@
-﻿class Program
+﻿using System.Diagnostics;
+using System.Xml.Linq;
+
+class Program
 {
     static List<Item> inventory = new List<Item>();
 
@@ -36,8 +39,37 @@
 
             void AddItem(Item item)
             {
-                inventory.Add(item);
-                Console.WriteLine($"Added {item.Name} to inventory.");
+                string? name = "";
+
+                while (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.Write("\nEnter item name: ");
+                    name = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(name))
+                    {
+                        Console.WriteLine("You have to type a name for the product");
+                    }
+                }
+
+                Console.Write("Enter item quantity ");
+                int quantity;
+
+                while (!int.TryParse(Console.ReadLine(), out quantity) || quantity < 0)
+                {
+                    Console.WriteLine("Invalid input. Please enter a non-negative number.");
+                }
+
+                Console.Write("Enter item price: ");
+                decimal price;
+                while (!decimal.TryParse(Console.ReadLine(), out price) || price < 0)
+                {
+                    Console.WriteLine("Invalid input. Please enter a non-negative number.");
+                }
+
+                inventory.Add(new Item { Name = name, Quantity = quantity, Price = price });
+                Console.WriteLine($"Item '{name}' added successfully!");
+
             }
 
             void ViewInventory()
