@@ -74,10 +74,18 @@ class Program
 
             void ViewInventory()
             {
-                Console.WriteLine("\nCurrent Inventory");
-                foreach (var item in inventory)
+                if (inventory.Count == 0)
                 {
-                    Console.WriteLine($"Name: {item.Name} Price: {item.Price:C}");
+                    Console.WriteLine("\nInventory is empty");
+                }
+                else
+                {
+
+                    Console.WriteLine("\nCurrent Inventory");
+                    foreach (var item in inventory)
+                    {
+                        Console.WriteLine($"Name: {item.Name} Price: {item.Price:C}");
+                    }
                 }
             }
 
