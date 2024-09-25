@@ -77,7 +77,7 @@ class Program
                 Console.WriteLine("\nCurrent Inventory");
                 foreach (var item in inventory)
                 {
-                    Console.WriteLine($"Name: {item.Name} Pric: {item.Price}");
+                    Console.WriteLine($"Name: {item.Name} Price: {item.Price:C}");
                 }
             }
 
