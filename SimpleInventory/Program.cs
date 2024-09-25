@@ -6,34 +6,58 @@
     {
         Console.WriteLine("Welcome to SimpleInventory!");
 
-        AddItem(new Item { Name = "Laptop", Quantity = 10, Price = 999.99m });
-        AddItem(new Item { Name = "Iphone", Quantity = 10, Price = 1999.99m });
-        AddItem(new Item { Name = "Gun", Quantity = 10, Price = 3999.99m });
+        bool running = true;
 
-        ViewInventory();
-
-        void AddItem(Item item)
+        while (running)
         {
-            inventory.Add(item);
-            Console.WriteLine($"Added {item.Name} to inventory.");
-        }
+            Console.WriteLine("\nChoose an option");
+            Console.WriteLine("1. Add an item");
+            Console.WriteLine("2. View inventory");
+            Console.WriteLine("3. Exit");
+            Console.Write("Enter your choice: ");
 
-        void ViewInventory()
-        {
-            Console.WriteLine("\nCurrent Inventory");
-            foreach (var item in inventory)
+            string? choice = Console.ReadLine();
+
+            switch (choice)
             {
-                Console.WriteLine($"Name: {item.Name} Pric: {item.Price}");
+                case "1":
+                    AddItem(new Item { Name = "Laptop", Quantity = 10, Price = 999.99m });
+                    break;
+                case "2":
+                    ViewInventory();
+                    break;
+                case "3":
+                    running = false;
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please select 1, 2, or 3.");
+                    break;
             }
+
+            void AddItem(Item item)
+            {
+                inventory.Add(item);
+                Console.WriteLine($"Added {item.Name} to inventory.");
+            }
+
+            void ViewInventory()
+            {
+                Console.WriteLine("\nCurrent Inventory");
+                foreach (var item in inventory)
+                {
+                    Console.WriteLine($"Name: {item.Name} Pric: {item.Price}");
+                }
+            }
+
         }
-
+      }
     }
-}
 
 
-class Item
-{
-    public string? Name { get; set; }
-    public int? Quantity { get; set; }
-    public decimal? Price { get; set; }
-}
+    class Item
+    {
+        public string? Name { get; set; }
+        public int? Quantity { get; set; }
+        public decimal? Price { get; set; }
+    }
+
