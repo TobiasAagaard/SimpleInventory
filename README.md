@@ -1,6 +1,6 @@
 # SimpleInventory
 
-**SimpleInventory** is a lightweight and user-friendly inventory management system built with C#. It is designed to help small businesses and individuals manage their product inventory with ease.
+**SimpleInventory** is a lightweight and user-friendly inventory management system built with C#.
 
 ## Future Features
 
