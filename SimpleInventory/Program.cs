@@ -6,7 +6,7 @@ class Program
 {
     static List<Item> inventory = new List<Item>();
 
-    static void Main()
+    static void Main(string[] args)
     {
         Console.WriteLine("Welcome to SimpleInventory!");
 
@@ -73,7 +73,7 @@ class Program
                     Console.WriteLine("Invalid input. Please enter a non-negative number.");
                 }
 
-                inventory.Add(new Item { Id = GenerateRandomId(6), Name = name, Quantity = quantity, Price = price });
+                inventory.Add(new Item { Id = GenerateUniqueRandomId(6), Name = name, Quantity = quantity, Price = price });
                 Console.WriteLine($"Item '{name}' added successfully!");
 
             }
@@ -95,6 +95,19 @@ class Program
                 }
             }
 
+
+            static string GenerateUniqueRandomId(int length)
+            {
+                string newId;
+                do
+                {
+                    newId = GenerateRandomId(length);
+                } while (InventoryContainsId(newId));
+
+                return newId;
+            }
+
+
             static string GenerateRandomId(int length)
             {
                 const string chars = "0123456789";
@@ -110,11 +123,22 @@ class Program
                 return new string(id);
             }
 
+            static bool InventoryContainsId(string id)
+            {
+                foreach (var item in inventory)
+                {
+                    if (item.Id == id)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+
         }
-      }
     }
-
-
+    }
     class Item
     {
         public string? Id { get; set; }
