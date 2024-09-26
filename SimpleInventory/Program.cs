@@ -1,15 +1,18 @@
 ﻿using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Xml.Linq;
+using MySql.Data.MySqlClient;
+
 
 class Program
 {
-    static List<Item> inventory = new List<Item>();
+    static string? connectionString = "Server=localhost;Database=SimpleInventoryDB;User ID=root;Password=;";
 
     static void Main(string[] args)
     {
         Console.WriteLine("Welcome to SimpleInventory!");
 
+  
         bool running = true;
 
         while (running)
@@ -73,25 +76,58 @@ class Program
                     Console.WriteLine("Invalid input. Please enter a non-negative number.");
                 }
 
-                inventory.Add(new Item { Id = GenerateUniqueRandomId(6), Name = name, Quantity = quantity, Price = price });
+                string id = GenerateUniqueRandomId(6);
+                
+                
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "INSERT INTO Items (Id, Name, Quantity, Price) VALUES (@Id, @Name, @Quantity, @Price)";
+
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", id);
+                        command.Parameters.AddWithValue("@Name", name);
+                        command.Parameters.AddWithValue("@Quantity", quantity);
+                        command.Parameters.AddWithValue("@Price", price);
+
+                        command.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                }
                 Console.WriteLine($"Item '{name}' added successfully!");
 
             }
 
             void ViewInventory()
             {
-                if (inventory.Count == 0)
+                using (var connection = new MySqlConnection(connectionString))
                 {
-                    Console.WriteLine("\nInventory is empty");
-                }
-                else
-                {
+                    connection.Open();
+                    string query = "SELECT Id, Name, Quantity, Price FROM Items";
 
-                    Console.WriteLine("\nCurrent Inventory");
-                    foreach (var item in inventory)
+                    using (var command = new MySqlCommand(query, connection))
+                    using (var reader = command.ExecuteReader())
                     {
-                        Console.WriteLine($"ID: {item.Id} Name: {item.Name} Price: {item.Price:C}");
+                        if (!reader.HasRows)
+                        {
+                            Console.WriteLine("\nInventory is empty.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nCurrent Inventory:");
+                            while (reader.Read())
+                            {
+                                string id = reader.GetString("Id");
+                                string name = reader.GetString("Name");
+                                int quantity = reader.GetInt32("Quantity");
+                                decimal price = reader.GetDecimal("Price");
+
+                                Console.WriteLine($"ID: {id}, Name: {name}, Quantity: {quantity}, Price: {price:C}");
+                            }
+                        }
                     }
+                    connection.Close();
                 }
             }
 
@@ -102,7 +138,7 @@ class Program
                 do
                 {
                     newId = GenerateRandomId(length);
-                } while (InventoryContainsId(newId));
+                } while (CheckIfIdExists(newId));
 
                 return newId;
             }
@@ -123,16 +159,20 @@ class Program
                 return new string(id);
             }
 
-            static bool InventoryContainsId(string id)
+            static bool CheckIfIdExists(string id)
             {
-                foreach (var item in inventory)
+                using (var connection = new MySqlConnection(connectionString))
                 {
-                    if (item.Id == id)
+                    connection.Open();
+                    string query = "SELECT COUNT(*) FROM Items WHERE Id = @Id";
+
+                    using (var command = new MySqlCommand(query, connection))
                     {
-                        return true;
+                        command.Parameters.AddWithValue("@Id", id);
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        return count > 0;
                     }
                 }
-                return false;
             }
 
 
