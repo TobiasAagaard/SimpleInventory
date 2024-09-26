@@ -17,7 +17,8 @@ class Program
             Console.WriteLine("\nChoose an option");
             Console.WriteLine("1. Add an item");
             Console.WriteLine("2. View inventory");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("3. Clear console");
+            Console.WriteLine("4. Exit");
             Console.Write("Enter your choice: ");
 
             string? choice = Console.ReadLine();
@@ -31,6 +32,9 @@ class Program
                     ViewInventory();
                     break;
                 case "3":
+                    Console.Clear();
+                    break;
+                case "4":
                     running = false;
                     break;
                 default:
