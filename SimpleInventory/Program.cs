@@ -35,9 +35,10 @@ class Program
         {
             Console.WriteLine("\nChoose an option");
             Console.WriteLine("1. Add an item");
-            Console.WriteLine("2. View inventory");
-            Console.WriteLine("3. Clear console");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("2. Delete an item");
+            Console.WriteLine("3. View inventory");
+            Console.WriteLine("4. Clear console");
+            Console.WriteLine("5. Exit");
             Console.Write("Enter your choice: ");
 
             string? choice = Console.ReadLine();
@@ -45,15 +46,18 @@ class Program
             switch (choice)
             {
                 case "1":
-                    AddItem(new Item { Name = "Laptop", Quantity = 10, Price = 999.99m });
+                    AddItem(new Item {});
                     break;
                 case "2":
-                    ViewInventory();
+                    Console.WriteLine("Feature not there yet");
                     break;
                 case "3":
-                    Console.Clear();
+                    ViewInventory();
                     break;
                 case "4":
+                    Console.Clear();
+                    break;
+                case "5":
                     running = false;
                     break;
                 default:
@@ -146,7 +150,6 @@ class Program
                     connection.Close();
                 }
             }
-
 
             static string GenerateUniqueRandomId(int length)
             {
