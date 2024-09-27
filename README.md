@@ -2,7 +2,7 @@
 
 **SimpleInventory** is a lightweight and user-friendly inventory management system built with C#.
 
-## Future Features
+## Features
 
 - **Add New Products**: Quickly add new items to your inventory with essential details such as name, quantity, price, and category.
 - **Update Inventory**: Edit existing product details or update stock levels as items are sold or received.
@@ -24,24 +24,46 @@
     cd SimpleInventory
     ```
 
-3. **Restore dependencies** (if using .NET Core):
+3. **Create an `appsettings.json` file**: This file will store your database connection settings. In the root of the project directory, create a new file called `appsettings.json` and add the following content to it:
+
+    ```json
+    {
+      "ConnectionStrings": {
+        "MySqlConnection": {
+          "Server": "localhost",
+          "Database": "SimpleInventoryDB",
+          "UserId": "your_mysql_username",
+          "Password": "your_mysql_password"
+        }
+      }
+    }
+    ```
+
+    Replace the values with your actual MySQL server details!
+
+4. **Add `appsettings.json` to `.gitignore`**: Make sure that `appsettings.json` is not pushed to version control by adding it to your `.gitignore` file:
+
+    ```
+    appsettings.json
+    ```
+
+5. **Restore dependencies** (if using .NET Core):
 
     ```bash
     dotnet restore
     ```
 
-4. **Build the project**:
+6. **Build the project**:
 
     ```bash
     dotnet build
     ```
 
-5. **Run the application**:
+7. **Run the application**:
 
     ```bash
     dotnet run
     ```
-
 
 ## License
 
