@@ -2,7 +2,7 @@
 
 **SimpleInventory** is a lightweight and user-friendly inventory management system built with C#.
 
-## Future Features
+## Features/Future Features
 
 - **Add New Products**: Quickly add new items to your inventory with essential details such as name, quantity, price, and category.
 - **Update Inventory**: Edit existing product details or update stock levels as items are sold or received.
@@ -24,25 +24,59 @@
     cd SimpleInventory
     ```
 
-3. **Restore dependencies** (if using .NET Core):
-
-    ```bash
-    dotnet restore
-    ```
-
-4. **Build the project**:
+3. **Build the project**:
 
     ```bash
     dotnet build
     ```
 
-5. **Run the application**:
+4. **Run the application**:
 
     ```bash
     dotnet run
     ```
 
+    ## Setting Up the MySQL Database and Configuration
 
+    **Create the MySQL database and table**: Before running the application, you need to set up the MySQL database and table. Open MySQL Workbench (or any MySQL client), connect to your MySQL server, and run the following SQL code to create the `Items` table:
+
+    ```sql
+    
+    CREATE DATABASE SimpleInventoryDB;
+    
+    USE SimpleInventoryDB;
+    
+    CREATE TABLE Items (
+        Id VARCHAR(6) PRIMARY KEY,
+        Name VARCHAR(255) NOT NULL,
+        Quantity INT NOT NULL,
+        Price DECIMAL(10, 2) NOT NULL
+    );
+    ```
+
+    **Create an `appsettings.json` file**: This file will store your database connection settings. In the root of the project directory, create a new file called `appsettings.json` and add the following content to it:
+
+    ```json
+    {
+      "ConnectionStrings": {
+        "MySqlConnection": {
+          "Server": "localhost",
+          "Database": "SimpleInventoryDB",
+          "UserId": "your_mysql_username",
+          "Password": "your_mysql_password"
+        }
+      }
+    }
+    ```
+    Replace the values with your actual MySQL server details!
+   
+    **Add `appsettings.json` to `.gitignore`**:
+
+    ```
+    appsettings.json
+    ```
+
+    
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE.txt) file for more details.
