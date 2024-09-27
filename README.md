@@ -41,6 +41,11 @@
     **Create the MySQL database and table**: Before running the application, you need to set up the MySQL database and table. Open MySQL Workbench (or any MySQL client), connect to your MySQL server, and run the following SQL code to create the `Items` table:
 
     ```sql
+    
+    CREATE DATABASE SimpleInventoryDB;
+    
+    USE SimpleInventoryDB;
+    
     CREATE TABLE Items (
         Id VARCHAR(6) PRIMARY KEY,
         Name VARCHAR(255) NOT NULL,
