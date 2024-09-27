@@ -65,7 +65,7 @@
     ```
     Replace the values with your actual MySQL server details!
    
-    ** Add `appsettings.json` to `.gitignore`**: Make sure that `appsettings.json` is not pushed to version control by adding it to your `.gitignore` file:
+    **Add `appsettings.json` to `.gitignore`**: Make sure that `appsettings.json` is not pushed to version control by adding it to your `.gitignore` file:
 
     ```
     appsettings.json
