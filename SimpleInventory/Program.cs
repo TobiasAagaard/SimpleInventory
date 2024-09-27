@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Xml.Linq;
 using MySql.Data.MySqlClient;
+using Mysqlx.Expr;
 using Newtonsoft.Json.Linq;
 
 
@@ -49,7 +50,7 @@ class Program
                     AddItem(new Item {});
                     break;
                 case "2":
-                    Console.WriteLine("Feature not there yet");
+                    DeleteItem();
                     break;
                 case "3":
                     ViewInventory();
@@ -117,6 +118,42 @@ class Program
                 }
                 Console.WriteLine($"Item '{name}' added successfully!");
 
+            }
+
+            void DeleteItem()
+            {
+
+                Console.WriteLine("Enter the ID of the item to DELETE");
+
+                Console.Write("Enter here to DELTE: ");
+                string? identifier = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(identifier))
+                {
+                    Console.WriteLine("You need to enter a valid ID");
+                    return;
+                }
+
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "DELETE FROM Items WHERE Id = @Identifier";
+
+                    using ( var command = new MySqlCommand(query,connection))
+                    {
+                        command.Parameters.AddWithValue("@Identifier", identifier);
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            Console.WriteLine("Item deleted successfully");
+                        } else
+                        {
+                            Console.WriteLine("Item not found or failed to delete");
+                        }
+
+                    }
+                }
             }
 
             void ViewInventory()
