@@ -24,8 +24,6 @@
     cd SimpleInventory
     ```
 
-    Replace the values with your actual MySQL server details!
-
 4. **Add `appsettings.json` to `.gitignore`**: Make sure that `appsettings.json` is not pushed to version control by adding it to your `.gitignore` file:
 
     ```
@@ -43,6 +41,8 @@
     ```bash
     dotnet run
     ```
+
+    ##Setting Up the MySQL Database and Configuration
 
     **Create the MySQL database and table**: Before running the application, you need to set up the MySQL database and table. Open MySQL Workbench (or any MySQL client), connect to your MySQL server, and run the following SQL code to create the `Items` table:
 
@@ -69,6 +69,7 @@
       }
     }
     ```
+    Replace the values with your actual MySQL server details!
 
 ## License
 
