@@ -38,7 +38,7 @@
 
     ## Setting Up the MySQL Database and Configuration
 
-    **Create the MySQL database and table**: Before running the application, you need to set up the MySQL database and table. Open MySQL Workbench (or any MySQL client), connect to your MySQL server, and run the following SQL code to create the `Items` table:
+    **Create the MySQL database and table**: Before running the application, you need to set up the MySQL database and table. Open MySQL Workbench (or any MySQL client), connect to your MySQL server, and run the following SQL code to create the `Database` and `Items` table:
 
     ```sql
     
