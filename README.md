@@ -24,19 +24,13 @@
     cd SimpleInventory
     ```
 
-4. **Add `appsettings.json` to `.gitignore`**: Make sure that `appsettings.json` is not pushed to version control by adding it to your `.gitignore` file:
-
-    ```
-    appsettings.json
-    ```
-
-5. **Build the project**:
+3. **Build the project**:
 
     ```bash
     dotnet build
     ```
 
-6. **Run the application**:
+4. **Run the application**:
 
     ```bash
     dotnet run
@@ -70,7 +64,13 @@
     }
     ```
     Replace the values with your actual MySQL server details!
+    **Add `appsettings.json` to `.gitignore`**: Make sure that `appsettings.json` is not pushed to version control by adding it to your `.gitignore` file:
 
+    ```
+    appsettings.json
+    ```
+
+    
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE.txt) file for more details.
