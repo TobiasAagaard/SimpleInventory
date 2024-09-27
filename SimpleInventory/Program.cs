@@ -2,17 +2,33 @@
 using System.Security.Cryptography;
 using System.Xml.Linq;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
 
 
 class Program
 {
-    static string? connectionString = "Server=localhost;Database=SimpleInventoryDB;User ID=root;Password=;";
+    static string? connectionString;
+   
 
     static void Main(string[] args)
     {
         Console.WriteLine("Welcome to SimpleInventory!");
+        LoadConnectionString();
 
-  
+        static void LoadConnectionString()
+        {
+            var jsonText = File.ReadAllText("appsettings.json");
+            var jsonObj = JObject.Parse(jsonText);
+
+            var server = jsonObj["ConnectionStrings"]["MySqlConnection"]["Server"];
+            var database = jsonObj["ConnectionStrings"]["MySqlConnection"]["Database"];
+            var userId = jsonObj["ConnectionStrings"]["MySqlConnection"]["UserId"];
+            var password = jsonObj["ConnectionStrings"]["MySqlConnection"]["Password"];
+
+            connectionString = $"Server={server};Database={database};User ID={userId};Password={password};";
+        }
+
+
         bool running = true;
 
         while (running)
