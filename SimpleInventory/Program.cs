@@ -73,8 +73,14 @@ class Program
 
                 while (string.IsNullOrWhiteSpace(name))
                 {
-                    Console.Write("\nEnter item name: ");
+                    Console.Write("\nEnter item name(or type 'exit' to exit to menu): ");
                     name = Console.ReadLine();
+
+                    if (name?.ToLower() == "exit")
+                    {
+                        Console.WriteLine("Exit to menu");
+                        return;
+                    }
 
                     if (string.IsNullOrWhiteSpace(name))
                     {
