@@ -123,9 +123,35 @@ class Program
             void DeleteItem()
             {
 
-                Console.WriteLine("Enter the ID of the item to DELETE");
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string map = "SELECT Id, Name FROM Items";
+                    using (var command = new MySqlCommand(map, connection))
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (!reader.HasRows)
+                        {
+                            Console.WriteLine("\nInventory is empty.");
+                            return;
+                        }
 
-                Console.Write("Enter here to DELTE: ");
+                        Console.WriteLine("\nItems in inventory to DELETE");
+                        Console.WriteLine();
+                        while (reader.Read())
+                        {
+                          
+                            string id = reader.GetString("Id");
+                            string name = reader.GetString("Name");
+                            Console.WriteLine($"ID: {id}, Name: {name}");
+                            
+                        }
+                    }
+                    connection.Close();
+                }
+                Console.WriteLine();
+
+                Console.Write("Enter ID here to DELETE: ");
                 string? identifier = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(identifier))
@@ -230,8 +256,6 @@ class Program
                     }
                 }
             }
-
-
         }
     }
     }
