@@ -11,4 +11,4 @@ This is the GUI project for managing inventory in the SimpleInventory system. It
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT [LICENSE](../LICENSE.txt).
