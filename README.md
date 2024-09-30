@@ -68,13 +68,27 @@
       }
     }
     ```
+
+    
     Replace the values with your actual MySQL server details!
+
+    **Place the `appsettings.json` file in the correct folder**: After creating the `appsettings.json` file, place it in the `net8.0` folder inside the `bin\Debug` directory of your SimpleInventory project. This is where the .NET runtime will look for the configuration file during development.
+
+    Example file path:
+    ```
+    SimpleInventory/bin/Debug/net8.0/appsettings.json
+    ```
    
     **Add `appsettings.json` to `.gitignore`**:
 
     ```
     appsettings.json
     ```
+
+
+    ## Tools Needed
+    - [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
+    - [.NET SDK](https://dotnet.microsoft.com/download)
 
     
 ## License
