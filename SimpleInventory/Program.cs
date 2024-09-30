@@ -37,9 +37,10 @@ class Program
             Console.WriteLine("\nChoose an option");
             Console.WriteLine("1. Add an item");
             Console.WriteLine("2. Delete an item");
-            Console.WriteLine("3. View inventory");
-            Console.WriteLine("4. Clear console");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("3. Update Item");
+            Console.WriteLine("4. View inventory");
+            Console.WriteLine("5. Clear console");
+            Console.WriteLine("6. Exit");
             Console.Write("Enter your choice: ");
 
             string? choice = Console.ReadLine();
@@ -53,12 +54,15 @@ class Program
                     DeleteItem();
                     break;
                 case "3":
-                    ViewInventory();
+                    UpdateItem();
                     break;
                 case "4":
-                    Console.Clear();
+                    ViewInventory();
                     break;
                 case "5":
+                    Console.Clear();
+                    break;
+                case "6":
                     running = false;
                     break;
                 default:
@@ -187,6 +191,45 @@ class Program
                     }
                 }
             }
+
+            void UpdateItem()
+            {
+                //Renders out the inventory
+                Console.WriteLine("\nCurrent Inventory:");
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT Id, Name, Quantity, Price FROM Items";
+                    using (var command = new MySqlCommand(query, connection))
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (!reader.HasRows)
+                        {
+                            Console.WriteLine("\nInventory is empty.");
+                            return;
+                        }
+
+                        while (reader.Read())
+                        {
+                            string id = reader.GetString("Id");
+                            string name = reader.GetString("Name");
+                            int quantity = reader.GetInt32("Quantity");
+                            decimal price = reader.GetDecimal("Price");
+
+                            Console.WriteLine($"ID: {id}, Name: {name}, Quantity: {quantity}, Price: {price:C}");
+                        }
+                    }
+                }
+                //Type id to select item to update
+                Console.Write("\nEnter the ID of the item you want to update: ");
+                string? identifier = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(identifier))
+                {
+                    Console.WriteLine("You need to enter a valid ID");
+                }
+            }
+
 
             void ViewInventory()
             {
