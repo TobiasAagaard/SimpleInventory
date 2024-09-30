@@ -136,8 +136,8 @@ class Program
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string map = "SELECT Id, Name FROM Items";
-                    using (var command = new MySqlCommand(map, connection))
+                    string query = "SELECT Id, Name FROM Items";
+                    using (var command = new MySqlCommand(query, connection))
                     using (var reader = command.ExecuteReader())
                     {
                         if (!reader.HasRows)
@@ -227,9 +227,64 @@ class Program
                 if (string.IsNullOrWhiteSpace(identifier))
                 {
                     Console.WriteLine("You need to enter a valid ID");
+                    return;
                 }
-            }
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT Id, Name, Quantity, Price FROM Items WHERE Id = @Id";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", identifier);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (!reader.HasRows)
+                            {
+                                Console.WriteLine("Item not found.");
+                                return;
+                            }
 
+                            reader.Read();
+                            string name = reader.GetString("Name");
+                            int quantity = reader.GetInt32("Quantity");
+                            decimal price = reader.GetDecimal("Price");
+
+                            Console.WriteLine($"\nCurrent item data - ID: {identifier}, Name: {name}, Quantity: {quantity}, Price: {price:C}");
+                        }
+                    }
+                }
+                //Input update 
+                Console.WriteLine("\nEnter new values for the item (leave blank to keep the current value):");
+
+                Console.Write("New name: ");
+                string? newName = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(newName)) newName = null;
+
+
+                //Update in database 
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string updateQuery = "UPDATE Items SET Name = COALESCE(@NewName, Name)";
+
+                    using (var command = new MySqlCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", identifier);
+                        command.Parameters.AddWithValue("@NewName", (object?)newName ?? DBNull.Value);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            Console.WriteLine("Item updated successfully.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Failed to update the item.");
+                        }
+                    }
+                }
+
+            }
 
             void ViewInventory()
             {
