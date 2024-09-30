@@ -2,6 +2,11 @@
 
 This is the GUI project for managing inventory in the SimpleInventory system. It is built using WPF (Windows Presentation Foundation) as part of the SimpleInventory solution.
 
+The GUI will allow users to:
+- Add, edit, and delete inventory items using an intuitive graphical interface.
+- View the current inventory in a user-friendly format.
+- Easily manage items with clear forms and controls.
+
 ## Setup
 
 1. Clone the repository.
