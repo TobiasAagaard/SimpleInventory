@@ -260,17 +260,35 @@ class Program
                 string? newName = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(newName)) newName = null;
 
+                Console.Write("New quantity: ");
+                string? newQuantityInput = Console.ReadLine();
+                int? newQuantity = null;
+                if (!string.IsNullOrWhiteSpace(newQuantityInput) && int.TryParse(newQuantityInput, out int parsedQuantity))
+                {
+                    newQuantity = parsedQuantity;
+                }
 
-                //Update in database 
+                Console.Write("New price: ");
+                string? newPriceInput = Console.ReadLine();
+                decimal? newPrice = null;
+                if (!string.IsNullOrWhiteSpace(newPriceInput) && decimal.TryParse(newPriceInput, out decimal parsedPrice))
+                {
+                    newPrice = parsedPrice;
+                }
+
+
+                //Update in databas
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string updateQuery = "UPDATE Items SET Name = COALESCE(@NewName, Name)";
+                    string updateQuery = "UPDATE Items SET Name = COALESCE(@NewName, Name), Quantity = COALESCE(@NewQuantity, Quantity), Price = COALESCE(@NewPrice, Price) WHERE Id = @Id";
 
                     using (var command = new MySqlCommand(updateQuery, connection))
                     {
                         command.Parameters.AddWithValue("@Id", identifier);
                         command.Parameters.AddWithValue("@NewName", (object?)newName ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@NewQuantity", (object?)newQuantity ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@NewPrice", (object?)newPrice ?? DBNull.Value);
 
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
