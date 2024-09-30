@@ -11,4 +11,4 @@ This is the Console-based application for managing inventory in the SimpleInvent
 
 ## License
 
-This project is licensed under the MIT [LICENSE](LICENSE.txt) .
+This project is licensed under the MIT  [LICENSE](../LICENSE.txt) .
