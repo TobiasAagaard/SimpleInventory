@@ -2,6 +2,8 @@
 
 **SimpleInventory** is a lightweight and user-friendly inventory management system built with C#.
 
+This project originally started as a **console application**, but now there are plans to develop a **WPF (Windows Presentation Foundation) version** to provide a graphical user interface (GUI) for better user experience.
+
 ## Features/Future Features
 
 - **Add New Products**: Quickly add new items to your inventory with essential details such as name, quantity, price, and category.
