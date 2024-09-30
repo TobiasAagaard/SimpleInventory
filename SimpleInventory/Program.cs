@@ -138,7 +138,7 @@ class Program
                     {
                         if (!reader.HasRows)
                         {
-                            Console.WriteLine("\nInventory is empty.");
+                            Console.WriteLine("\nInventory is empty, you can't DELETE any items.");
                             return;
                         }
 
