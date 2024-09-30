@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInventory", "SimpleInventory\SimpleInventory.csproj", "{C758D2D1-98C2-4EA9-BE7C-01866B59F6BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleInventory", "SimpleInventory\SimpleInventory.csproj", "{C758D2D1-98C2-4EA9-BE7C-01866B59F6BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInventoryManager.GUI", "SimpleInventoryManager.GUI\SimpleInventoryManager.GUI.csproj", "{AEA4961F-8AD1-4CAC-8F71-46F33CE4F11D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C758D2D1-98C2-4EA9-BE7C-01866B59F6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C758D2D1-98C2-4EA9-BE7C-01866B59F6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C758D2D1-98C2-4EA9-BE7C-01866B59F6BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEA4961F-8AD1-4CAC-8F71-46F33CE4F11D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEA4961F-8AD1-4CAC-8F71-46F33CE4F11D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEA4961F-8AD1-4CAC-8F71-46F33CE4F11D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEA4961F-8AD1-4CAC-8F71-46F33CE4F11D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
