@@ -132,7 +132,7 @@ class Program
 
             void DeleteItem()
             {
-
+                //Renders Items 
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
