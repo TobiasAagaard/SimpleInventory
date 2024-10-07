@@ -39,8 +39,9 @@ class Program
             Console.WriteLine("2. Delete an item");
             Console.WriteLine("3. Update Item");
             Console.WriteLine("4. View inventory");
-            Console.WriteLine("5. Clear console");
-            Console.WriteLine("6. Exit");
+            Console.WriteLine("5 Search for item");
+            Console.WriteLine("6. Clear console");
+            Console.WriteLine("7. Exit");
             Console.Write("Enter your choice: ");
 
             string? choice = Console.ReadLine();
@@ -60,9 +61,12 @@ class Program
                     ViewInventory();
                     break;
                 case "5":
-                    Console.Clear();
+                    SearchItem();
                     break;
                 case "6":
+                    Console.Clear();
+                    break;
+                case "7":
                     running = false;
                     break;
                 default:
@@ -335,6 +339,53 @@ class Program
                     connection.Close();
                 }
             }
+
+            //Search Function Matching ID or Name with Input
+            void SearchItem()
+            {
+                Console.Write("\nEnter the name or ID of the item to search: ");
+                string? searchTerm = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(searchTerm))
+                {
+                    Console.WriteLine("Please enter a valid search term.");
+                    return;
+                }
+
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT Id, Name, Quantity, Price FROM Items WHERE Name LIKE @SearchTerm OR Id = @SearchTerm";
+
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@SearchTerm", $"%{searchTerm}%");
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (!reader.HasRows)
+                            {
+                                Console.WriteLine("\nNo items found matching the search criteria.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nSearch Results:");
+                                while (reader.Read())
+                                {
+                                    string id = reader.GetString("Id");
+                                    string name = reader.GetString("Name");
+                                    int quantity = reader.GetInt32("Quantity");
+                                    decimal price = reader.GetDecimal("Price");
+
+                                    Console.WriteLine($"ID: {id}, Name: {name}, Quantity: {quantity}, Price: {price:C}");
+                                }
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+
 
             static string GenerateUniqueRandomId(int length)
             {
