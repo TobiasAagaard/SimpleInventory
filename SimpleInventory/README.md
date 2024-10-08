@@ -18,7 +18,7 @@ The Console application interacts with a MySQL database to store and manage inve
   - Retrieve and display all items in the inventory.
  
 
-https://ww1.microchip.com/downloads/en/devicedoc/atmel-2549-8-bit-avr-microcontroller-atmega640-1280-1281-2560-2561_datasheet.pdf
+
 
 ## License
 
