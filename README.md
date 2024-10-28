@@ -54,6 +54,15 @@ This project originally started as a **console application**, but now there are 
         Quantity INT NOT NULL,
         Price DECIMAL(10, 2) NOT NULL
     );
+    
+    CREATE TABLE Users (
+        UserId INT AUTO_INCREMENT PRIMARY KEY,
+        Username VARCHAR(50) UNIQUE NOT NULL,
+        PasswordHash VARCHAR(64) NOT NULL,
+        Salt VARCHAR(16) NOT NULL,
+        CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        Role ENUM('Admin', 'User') DEFAULT 'User' NOT NULL
+   );
     ```
 
     **Create an `appsettings.json` file**: This file will store your database connection settings. In the root of the project directory, create a new file called `appsettings.json` and add the following content to it:
