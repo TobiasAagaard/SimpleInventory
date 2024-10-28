@@ -70,7 +70,7 @@ class Program
                     running = false;
                     break;
                 default:
-                    Console.WriteLine("Invalid choice. Please select 1, 2,3 or 4.");
+                    Console.WriteLine("Invalid choice. Please select another option");
                     break;
             }
 
