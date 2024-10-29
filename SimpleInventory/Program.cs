@@ -34,6 +34,7 @@ class Program
 
         while (running)
         {
+            // Menu
             Console.WriteLine("\nChoose an option");
             Console.WriteLine("1. Add an item");
             Console.WriteLine("2. Delete an item");
