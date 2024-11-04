@@ -6,9 +6,13 @@ namespace SimpleInventory.Data
     {
         public static string? ConnectionString { get; private set; }
 
+        static DatabaseConfig()
+        {
+            LoadConnectionString();
+        }
+
         public static void LoadConnectionString()
         {
-            // Kontroller om filen findes
             if (!File.Exists("appsettings.json"))
             {
                 Console.WriteLine("appsettings.json file not found.");
@@ -20,7 +24,6 @@ namespace SimpleInventory.Data
                 var jsonText = File.ReadAllText("appsettings.json");
                 var jsonObj = JObject.Parse(jsonText);
 
-                // Forsøg at hente hver værdi, og smid en undtagelse, hvis de ikke findes
                 var server = jsonObj["ConnectionStrings"]?["MySqlConnection"]?["Server"]?.ToString();
                 var database = jsonObj["ConnectionStrings"]?["MySqlConnection"]?["Database"]?.ToString();
                 var userId = jsonObj["ConnectionStrings"]?["MySqlConnection"]?["UserId"]?.ToString();
@@ -36,7 +39,7 @@ namespace SimpleInventory.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while loading the connection string: {ex.Message}");
+                Console.WriteLine($"Error loading connection string: {ex.Message}");
             }
         }
     }
