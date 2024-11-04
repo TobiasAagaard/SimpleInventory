@@ -8,15 +8,36 @@ namespace SimpleInventory.Data
 
         public static void LoadConnectionString()
         {
-            var jsonText = File.ReadAllText("appsettings.json");
-            var jsonObj = JObject.Parse(jsonText);
+            // Kontroller om filen findes
+            if (!File.Exists("appsettings.json"))
+            {
+                Console.WriteLine("appsettings.json file not found.");
+                return;
+            }
 
-            var server = jsonObj["ConnectionStrings"]["MySqlConnection"]["Server"];
-            var database = jsonObj["ConnectionStrings"]["MySqlConnection"]["Database"];
-            var userId = jsonObj["ConnectionStrings"]["MySqlConnection"]["UserId"];
-            var password = jsonObj["ConnectionStrings"]["MySqlConnection"]["Password"];
+            try
+            {
+                var jsonText = File.ReadAllText("appsettings.json");
+                var jsonObj = JObject.Parse(jsonText);
 
-            ConnectionString = $"Server={server};Database={database};User ID={userId};Password={password};";
+                // Forsøg at hente hver værdi, og smid en undtagelse, hvis de ikke findes
+                var server = jsonObj["ConnectionStrings"]?["MySqlConnection"]?["Server"]?.ToString();
+                var database = jsonObj["ConnectionStrings"]?["MySqlConnection"]?["Database"]?.ToString();
+                var userId = jsonObj["ConnectionStrings"]?["MySqlConnection"]?["UserId"]?.ToString();
+                var password = jsonObj["ConnectionStrings"]?["MySqlConnection"]?["Password"]?.ToString();
+
+                if (server == null || database == null || userId == null || password == null)
+                {
+                    Console.WriteLine("One or more required connection string fields are missing in appsettings.json.");
+                    return;
+                }
+
+                ConnectionString = $"Server={server};Database={database};User ID={userId};Password={password};";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while loading the connection string: {ex.Message}");
+            }
         }
     }
 }
