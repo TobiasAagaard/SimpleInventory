@@ -4,7 +4,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Welcome to SimpleInventory!");
+        var loginScreen = new LoginScreen();
+        loginScreen.ShowLoginScreen();
+
         var menu = new Menu();
         menu.ShowMainMenu();
     }
