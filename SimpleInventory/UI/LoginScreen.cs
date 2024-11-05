@@ -48,7 +48,7 @@ namespace SimpleInventory.UI
             Console.Write("Enter username: ");
             string username = Console.ReadLine() ?? "";
             Console.Write("Enter password: ");
-            string password = Console.ReadLine() ?? "";
+            string password = ReadPassword();
 
             if (_authService.Login(username, password))
             {
@@ -64,9 +64,35 @@ namespace SimpleInventory.UI
             Console.Write("Enter new username: ");
             string username = Console.ReadLine() ?? "";
             Console.Write("Enter new password: ");
-            string password = Console.ReadLine() ?? "";
+            string password = ReadPassword();
 
             _authService.Signup(username, password);
+        }
+        private string ReadPassword()
+        {
+            var password = string.Empty;
+            ConsoleKey key;
+
+            do
+            {
+                var keyInfo = Console.ReadKey(intercept: true);
+                key = keyInfo.Key;
+
+                if (key == ConsoleKey.Backspace && password.Length > 0)
+                {
+                  
+                    password = password[0..^1];
+                    Console.Write("\b \b");
+                }
+                else if (!char.IsControl(keyInfo.KeyChar))
+                {
+                    password += keyInfo.KeyChar;
+                    Console.Write("*");
+                }
+            } while (key != ConsoleKey.Enter);
+
+            Console.WriteLine();
+            return password;
         }
     }
 }
