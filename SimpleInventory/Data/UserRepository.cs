@@ -70,7 +70,7 @@ namespace SimpleInventory.Data
 
         private string GenerateSalt()
         {
-            byte[] saltBytes = new byte[16];
+            byte[] saltBytes = new byte[8];
             RandomNumberGenerator.Fill(saltBytes);
             return Convert.ToBase64String(saltBytes);
         }
