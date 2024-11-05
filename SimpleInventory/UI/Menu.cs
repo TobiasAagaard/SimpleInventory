@@ -7,10 +7,11 @@ namespace SimpleInventory.UI
     {
         private readonly InventoryService _inventoryService = new InventoryService();
 
-        public void ShowMainMenu()
+        public bool ShowMainMenu()
         {
-            bool running = true;
-            while (running)
+            bool isLoggedOut = false;
+
+            while (!isLoggedOut) // Fixed condition to keep the menu running until logout
             {
                 Console.WriteLine("\nChoose an option:");
                 Console.WriteLine("1. Add an item");
@@ -18,7 +19,8 @@ namespace SimpleInventory.UI
                 Console.WriteLine("3. Update an item");
                 Console.WriteLine("4. View inventory");
                 Console.WriteLine("5. Search for an item");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("6. Logout");
+                Console.WriteLine("7. Exit");
                 Console.Write("Enter your choice: ");
 
                 switch (Console.ReadLine())
@@ -39,13 +41,19 @@ namespace SimpleInventory.UI
                         SearchItem();
                         break;
                     case "6":
-                        running = false;
+                        Console.WriteLine("Logging out...");
+                        isLoggedOut = true; // Set to true when logging out
+                        break;
+                    case "7":
+                        Environment.Exit(0);
                         break;
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
             }
+
+            return isLoggedOut; // Return true to indicate the user has logged out
         }
 
         private void AddItem()
