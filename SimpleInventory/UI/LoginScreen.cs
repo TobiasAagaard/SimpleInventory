@@ -27,7 +27,7 @@ namespace SimpleInventory.UI
                     case "1":
                         if (Login())
                         {
-                            return; // On successful login, break the loop and show the main menu
+                            return; 
                         }
                         break;
                     case "2":
