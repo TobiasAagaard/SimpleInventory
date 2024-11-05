@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using MySql.Data.MySqlClient;
 using SimpleInventory.Models;
 
@@ -13,14 +14,21 @@ namespace SimpleInventory.Data
 
             using (var connection = new MySqlConnection(DatabaseConfig.ConnectionString))
             {
-                connection.Open();
-                string query = "INSERT INTO Users (Username, PasswordHash, Salt) VALUES (@Username, @PasswordHash, @Salt)";
-                using (var command = new MySqlCommand(query, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@Username", username);
-                    command.Parameters.AddWithValue("@PasswordHash", passwordHash);
-                    command.Parameters.AddWithValue("@Salt", salt);
-                    command.ExecuteNonQuery();
+                    connection.Open();
+                    string query = "INSERT INTO Users (Username, PasswordHash, Salt) VALUES (@Username, @PasswordHash, @Salt)";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", username);
+                        command.Parameters.AddWithValue("@PasswordHash", passwordHash);
+                        command.Parameters.AddWithValue("@Salt", salt);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error adding user: " + ex.Message);
                 }
             }
         }
@@ -29,25 +37,32 @@ namespace SimpleInventory.Data
         {
             using (var connection = new MySqlConnection(DatabaseConfig.ConnectionString))
             {
-                connection.Open();
-                string query = "SELECT * FROM Users WHERE Username = @Username";
-                using (var command = new MySqlCommand(query, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@Username", username);
-                    using (var reader = command.ExecuteReader())
+                    connection.Open();
+                    string query = "SELECT * FROM Users WHERE Username = @Username";
+                    using (var command = new MySqlCommand(query, connection))
                     {
-                        if (reader.Read())
+                        command.Parameters.AddWithValue("@Username", username);
+                        using (var reader = command.ExecuteReader())
                         {
-                            return new User
+                            if (reader.Read())
                             {
-                                UserId = reader.GetInt32("UserId"),
-                                Username = reader.GetString("Username"),
-                                PasswordHash = reader.GetString("PasswordHash"),
-                                Salt = reader.GetString("Salt"),
-                                Role = reader.GetString("Role")
-                            };
+                                return new User
+                                {
+                                    UserId = reader.GetInt32("UserId"),
+                                    Username = reader.GetString("Username"),
+                                    PasswordHash = reader.GetString("PasswordHash"),
+                                    Salt = reader.GetString("Salt"),
+                                    Role = reader.GetString("Role")
+                                };
+                            }
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error retrieving user: " + ex.Message);
                 }
             }
             return null;
