@@ -4,7 +4,12 @@ namespace SimpleInventory.UI
 {
     public class LoginScreen
     {
-        private readonly AuthService _authService = new AuthService();
+        private readonly AuthService _authService;
+
+        public LoginScreen(AuthService authService)
+        {
+            _authService = authService;
+        }
 
         public void ShowLoginScreen()
         {
@@ -22,8 +27,7 @@ namespace SimpleInventory.UI
                     case "1":
                         if (Login())
                         {
-                            // On successful login, break the loop and show the main menu
-                            return;
+                            return; // On successful login, break the loop and show the main menu
                         }
                         break;
                     case "2":
@@ -46,7 +50,13 @@ namespace SimpleInventory.UI
             Console.Write("Enter password: ");
             string password = Console.ReadLine() ?? "";
 
-            return _authService.Login(username, password);
+            if (_authService.Login(username, password))
+            {
+                Console.WriteLine("Login successful.");
+                return true;
+            }
+            Console.WriteLine("Login failed.");
+            return false;
         }
 
         private void Signup()
