@@ -12,35 +12,6 @@ This project originally started as a **console application**, but now there are 
 - **View Inventory**: Display a list of all items in the inventory, including current stock levels and prices.
 - **Search Functionality**: Easily find items by name, category, or other criteria.
 
-## SimpleInventory Project Structure
-```text
-SimpleInventory/
-├── Program.cs                          // Main entry point for the application
-├── appsettings.json                    // Configuration file with database connection details
-
-├── Models/
-│   ├── Item.cs                         // Model class representing inventory items
-│   └── User.cs                         // Model class representing a user (for login/signup)
-
-├── Data/
-│   ├── DatabaseConfig.cs               // Loads and manages the MySQL connection string
-│   ├── ItemRepository.cs               // Handles CRUD operations for inventory items
-│   └── UserRepository.cs               // Handles user-related database operations for login/signup
-
-├── Services/
-│   ├── InventoryService.cs             // Business logic for managing inventory items
-│   ├── IdGenerator.cs                  // Generates unique IDs for items
-│   └── AuthService.cs                  // Handles authentication logic for login and signup
-
-├── UI/
-│   ├── LoginScreen.cs                  // Manages the login/signup user interface in the console
-│   └── Menu.cs                         // Handles the main inventory menu and user options
-
-└── Utilities/
-    └── ConsoleHelpers.cs               // Helper methods for reading and validating console input
-
-```
-
 ## Installation
 
 1. **Clone the repository**: Open your terminal and clone the repository using Git:
