@@ -11,7 +11,7 @@ namespace SimpleInventory.UI
         {
             bool isLoggedOut = false;
 
-            while (!isLoggedOut) // Fixed condition to keep the menu running until logout
+            while (!isLoggedOut)
             {
                 Console.WriteLine("\nChoose an option:");
                 Console.WriteLine("1. Add an item");
@@ -42,7 +42,7 @@ namespace SimpleInventory.UI
                         break;
                     case "6":
                         Console.WriteLine("Logging out...");
-                        isLoggedOut = true; // Set to true when logging out
+                        isLoggedOut = true; 
                         break;
                     case "7":
                         Environment.Exit(0);
@@ -53,7 +53,7 @@ namespace SimpleInventory.UI
                 }
             }
 
-            return isLoggedOut; // Return true to indicate the user has logged out
+            return isLoggedOut; 
         }
 
         private void AddItem()
