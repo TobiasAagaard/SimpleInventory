@@ -43,6 +43,8 @@ namespace SimpleInventory.UI
                 {
                     Console.WriteLine("Invalid choice. Please try again.");
                 }
+
+                isLoggedOut = HandleChoice(choice);
             }
 
             return isLoggedOut;
@@ -69,7 +71,7 @@ namespace SimpleInventory.UI
                     return true;
                 case "6":
                     Console.WriteLine("Logging out...");
-                    return true; 
+                    return true;
                 case "7":
                     Environment.Exit(0);
                     return true;

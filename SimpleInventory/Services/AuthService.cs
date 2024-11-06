@@ -17,9 +17,9 @@ namespace SimpleInventory.Services
             var user = _userRepository.GetUserByUsername(username);
             if (user != null && _userRepository.VerifyPassword(password, user.PasswordHash, user.Salt))
             {
-                return user.Role; // Returner brugerens rolle, hvis login er succesfuldt
+                return user.Role; 
             }
-            return null; // Returner null, hvis login fejler
+            return null;
         }
 
         public void Signup(string username, string password)
