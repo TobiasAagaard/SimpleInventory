@@ -12,14 +12,14 @@ namespace SimpleInventory.Services
             _userRepository = userRepository;
         }
 
-        public bool Login(string username, string password)
+        public string? Login(string username, string password)
         {
             var user = _userRepository.GetUserByUsername(username);
-            if (user != null)
+            if (user != null && _userRepository.VerifyPassword(password, user.PasswordHash, user.Salt))
             {
-                return _userRepository.VerifyPassword(password, user.PasswordHash, user.Salt);
+                return user.Role; // Returner brugerens rolle, hvis login er succesfuldt
             }
-            return false;
+            return null; // Returner null, hvis login fejler
         }
 
         public void Signup(string username, string password)

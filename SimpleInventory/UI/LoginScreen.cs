@@ -11,7 +11,7 @@ namespace SimpleInventory.UI
             _authService = authService;
         }
 
-        public void ShowLoginScreen()
+        public string? ShowLoginScreen()
         {
             while (true)
             {
@@ -25,9 +25,10 @@ namespace SimpleInventory.UI
                 switch (choice)
                 {
                     case "1":
-                        if (Login())
+                        string? role = Login();
+                        if (role != null)
                         {
-                            return; 
+                            return role; 
                         }
                         break;
                     case "2":
@@ -43,20 +44,23 @@ namespace SimpleInventory.UI
             }
         }
 
-        private bool Login()
+        private string? Login()
         {
             Console.Write("Enter username: ");
             string username = Console.ReadLine() ?? "";
             Console.Write("Enter password: ");
             string password = ReadPassword();
 
-            if (_authService.Login(username, password))
+           
+            string? role = _authService.Login(username, password);
+            if (role != null)
             {
                 Console.WriteLine("Login successful.");
-                return true;
+                return role; 
             }
+
             Console.WriteLine("Login failed.");
-            return false;
+            return null;
         }
 
         private void Signup()
@@ -67,7 +71,9 @@ namespace SimpleInventory.UI
             string password = ReadPassword();
 
             _authService.Signup(username, password);
+            Console.WriteLine("Signup successful. You can now login with your new credentials.");
         }
+
         private string ReadPassword()
         {
             var password = string.Empty;
@@ -80,7 +86,6 @@ namespace SimpleInventory.UI
 
                 if (key == ConsoleKey.Backspace && password.Length > 0)
                 {
-                  
                     password = password[0..^1];
                     Console.Write("\b \b");
                 }

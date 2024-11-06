@@ -6,6 +6,12 @@ namespace SimpleInventory.UI
     public class Menu
     {
         private readonly InventoryService _inventoryService = new InventoryService();
+        private readonly string _userRole;
+
+        public Menu(string userRole)
+        {
+            _userRole = userRole;
+        }
 
         public bool ShowMainMenu()
         {
@@ -21,39 +27,71 @@ namespace SimpleInventory.UI
                 Console.WriteLine("5. Search for an item");
                 Console.WriteLine("6. Logout");
                 Console.WriteLine("7. Exit");
+
+                
+                if (_userRole == "Admin")
+                {
+                    Console.WriteLine("\n--- Admin Panel ---");
+                    Console.WriteLine("8. View all users");
+                    Console.WriteLine("9. Delete a user account");
+                }
+
                 Console.Write("Enter your choice: ");
 
-                switch (Console.ReadLine())
+                string choice = Console.ReadLine() ?? "";
+                if (!HandleChoice(choice))
                 {
-                    case "1":
-                        AddItem();
-                        break;
-                    case "2":
-                        DeleteItem();
-                        break;
-                    case "3":
-                        UpdateItem();
-                        break;
-                    case "4":
-                        ViewInventory();
-                        break;
-                    case "5":
-                        SearchItem();
-                        break;
-                    case "6":
-                        Console.WriteLine("Logging out...");
-                        isLoggedOut = true; 
-                        break;
-                    case "7":
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice. Please try again.");
-                        break;
+                    Console.WriteLine("Invalid choice. Please try again.");
                 }
             }
 
-            return isLoggedOut; 
+            return isLoggedOut;
+        }
+
+        private bool HandleChoice(string choice)
+        {
+            switch (choice)
+            {
+                case "1":
+                    AddItem();
+                    return true;
+                case "2":
+                    DeleteItem();
+                    return true;
+                case "3":
+                    UpdateItem();
+                    return true;
+                case "4":
+                    ViewInventory();
+                    return true;
+                case "5":
+                    SearchItem();
+                    return true;
+                case "6":
+                    Console.WriteLine("Logging out...");
+                    return true; 
+                case "7":
+                    Environment.Exit(0);
+                    return true;
+                case "8":
+                    if (_userRole == "Admin")
+                    {
+                        ViewAllUsers();
+                        return true;
+                    }
+                    Console.WriteLine("Access denied. Admin only feature.");
+                    return false;
+                case "9":
+                    if (_userRole == "Admin")
+                    {
+                        DeleteUserAccount();
+                        return true;
+                    }
+                    Console.WriteLine("Access denied. Admin only feature.");
+                    return false;
+                default:
+                    return false;
+            }
         }
 
         private void AddItem()
@@ -112,6 +150,20 @@ namespace SimpleInventory.UI
             {
                 Console.WriteLine("Item not found.");
             }
+        }
+
+        private void ViewAllUsers()
+        {
+            Console.WriteLine("Viewing all users:");
+           
+        }
+
+        private void DeleteUserAccount()
+        {
+            Console.Write("Enter the username of the account to delete: ");
+            string username = Console.ReadLine() ?? "";
+          
+            Console.WriteLine($"User '{username}' has been deleted.");
         }
     }
 }

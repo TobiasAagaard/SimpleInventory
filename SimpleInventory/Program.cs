@@ -9,17 +9,25 @@ class Program
         var userRepository = new UserRepository();
         var authService = new AuthService(userRepository);
         var loginScreen = new LoginScreen(authService);
-        var menu = new Menu();
 
         while (true)
         {
-            loginScreen.ShowLoginScreen();
+            
+            string? userRole = loginScreen.ShowLoginScreen();
 
-            bool isLoggedOut = menu.ShowMainMenu();
-
-            if (isLoggedOut)
+            if (userRole != null) 
             {
-                Console.WriteLine("Returning to login screen...");
+                var menu = new Menu(userRole); 
+                bool isLoggedOut = menu.ShowMainMenu();
+
+                if (isLoggedOut)
+                {
+                    Console.WriteLine("Returning to login screen...");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Login failed. Please try again.");
             }
         }
     }
