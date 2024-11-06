@@ -13,6 +13,7 @@ namespace SimpleInventory.UI
 
         public string? ShowLoginScreen()
         {
+            Console.Clear();
             while (true)
             {
                 Console.WriteLine("\n--- Welcome to SimpleInventory ---");
