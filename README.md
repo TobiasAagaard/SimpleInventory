@@ -61,7 +61,8 @@ This project originally started as a **console application**, but now there are 
         PasswordHash VARCHAR(64) NOT NULL,
         Salt VARCHAR(16) NOT NULL,
         CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        Role ENUM('Admin', 'User') DEFAULT 'User' NOT NULL
+        Role ENUM('Admin', 'User') DEFAULT 'User' NOT NULL,
+        IsActive BOOLEAN DEFAULT TRUE
    );
     ```
 
