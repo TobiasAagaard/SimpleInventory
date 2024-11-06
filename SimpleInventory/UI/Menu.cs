@@ -16,7 +16,6 @@ namespace SimpleInventory.UI
         public bool ShowMainMenu()
         {
             bool isLoggedOut = false;
-
             while (!isLoggedOut)
             {
                 Console.WriteLine("\nChoose an option:");
@@ -56,19 +55,19 @@ namespace SimpleInventory.UI
             {
                 case "1":
                     AddItem();
-                    return true;
+                    return false;
                 case "2":
                     DeleteItem();
-                    return true;
+                    return false;
                 case "3":
                     UpdateItem();
-                    return true;
+                    return false;
                 case "4":
                     ViewInventory();
-                    return true;
+                    return false;
                 case "5":
                     SearchItem();
-                    return true;
+                    return false;
                 case "6":
                     Console.WriteLine("Logging out...");
                     return true;
@@ -79,7 +78,7 @@ namespace SimpleInventory.UI
                     if (_userRole == "Admin")
                     {
                         ViewAllUsers();
-                        return true;
+                        return false;
                     }
                     Console.WriteLine("Access denied. Admin only feature.");
                     return false;
@@ -87,7 +86,7 @@ namespace SimpleInventory.UI
                     if (_userRole == "Admin")
                     {
                         DeleteUserAccount();
-                        return true;
+                        return false;
                     }
                     Console.WriteLine("Access denied. Admin only feature.");
                     return false;
