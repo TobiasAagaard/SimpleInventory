@@ -25,6 +25,10 @@ SimpleInventory/
 ├── Program.cs                          // Main entry point for the application
 ├── appsettings.json                    // Configuration file with database connection details
 
+├── Operations/
+│   ├──
+│   └── 
+
 ├── Models/
 │   ├── Item.cs                         // Model class representing inventory items
 │   └── User.cs                         // Model class representing a user (for login/signup)
