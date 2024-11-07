@@ -26,7 +26,7 @@ SimpleInventory/
 ├── appsettings.json                    // Configuration file with database connection details
 
 ├── Operations/
-│   ├──
+│   ├── InventoryOperation.cs
 │   └── 
 
 ├── Models/
