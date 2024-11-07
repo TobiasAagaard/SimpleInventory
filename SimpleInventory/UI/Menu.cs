@@ -15,6 +15,7 @@ namespace SimpleInventory.UI
 
         public bool ShowMainMenu()
         {
+            Console.Clear();
             bool isLoggedOut = false;
             while (!isLoggedOut)
             {
