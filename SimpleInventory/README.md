@@ -26,7 +26,7 @@ SimpleInventory/
 ├── appsettings.json                    // Configuration file with database connection details
 
 ├── Operations/
-│   ├── InventoryOperation.cs           // Handles core inventory operations such as adding, updating, and removing items in the inventory.
+│   ├── InventoryOperation.cs           // Handles core operations in the inventory.
 │   └── 
 
 ├── Models/
